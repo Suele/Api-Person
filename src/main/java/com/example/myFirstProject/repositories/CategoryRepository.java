@@ -14,17 +14,17 @@ public class CategoryRepository {
     private Map<Long, Category> map = new HashMap<>();
 
     // salva uma categoria e não retorna nada.
-    public void save(Category category){
+    public void save (Category category) {
         map.put(category.getId(), category);
     }
 
     // retorna a categoria que pertence o id informado.
-    public Category findById(Long id){
+    public Category findById (Long id) {
         return map.get(id);
     }
 
     // retorna  todas as categorias.
-    public List<Category> findAll(){
+    public List<Category> findAll () {
         return new ArrayList<Category>(map.values());
     }
 }
