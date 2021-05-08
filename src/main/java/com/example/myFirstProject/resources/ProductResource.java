@@ -3,11 +3,9 @@ package com.example.myFirstProject.resources;
 import com.example.myFirstProject.entities.Product;
 import com.example.myFirstProject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,14 +17,17 @@ public class ProductResource {
     private ProductRepository productRepository;
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll () {
-        List<Product> list = productRepository.findAll();
-        return ResponseEntity.ok().body(list);
+    public List<Product> listProduct () {
+        return productRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> findById (@PathVariable Long id) {
-        Product prduct = productRepository.findById(id).orElse(null);
-        return ResponseEntity.ok().body(prduct);
+    public Product changeId (@PathVariable Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> createProduct (@RequestBody Product product) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(product));
     }
 }
