@@ -3,11 +3,7 @@ package com.example.myFirstProject.resources;
 import com.example.myFirstProject.entities.Category;
 import com.example.myFirstProject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,17 +15,19 @@ public class CategoryResource {
     private CategoryRepository categoryRepository;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = categoryRepository.findAll();
-        return ResponseEntity.ok().body(list);
+    public List<Category> listCategory () {
+        return categoryRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Category>findById(@PathVariable Long id){
-        Category cat = categoryRepository.findById(id).orElse(null);
-        return ResponseEntity.ok().body(cat);
+    public Category changeId (@PathVariable Long id) {
+        return categoryRepository.findById(id).orElse(null);
     }
 
+    @PostMapping
+    public Category createCategory (@RequestBody Category category) {
+        return categoryRepository.save(category);
+    }
 
 
 }
