@@ -12,8 +12,12 @@ import java.util.List;
 @RequestMapping(value = "/person")
 public class PersonResource {
 
+    private final PersonRepository personRepository;
+
     @Autowired
-    private PersonRepository personRepository;
+    public PersonResource (PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @GetMapping
     public List<Person> listPersons () {
