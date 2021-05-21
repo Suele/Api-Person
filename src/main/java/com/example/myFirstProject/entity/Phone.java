@@ -1,4 +1,4 @@
-package com.example.myFirstProject.entities;
+package com.example.myFirstProject.entity;
 
 import com.example.myFirstProject.enums.PhoneType;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,10 @@ public class Phone {
     @Column(nullable = false)
     private PhoneType type;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3)
+    private String ddd;
+
+    @Column(nullable = false, length = 9)
     private String number;
 
 }
