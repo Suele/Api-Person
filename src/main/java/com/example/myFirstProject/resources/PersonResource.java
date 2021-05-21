@@ -1,6 +1,6 @@
 package com.example.myFirstProject.resources;
 
-import com.example.myFirstProject.entities.Person;
+import com.example.myFirstProject.entity.Person;
 import com.example.myFirstProject.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,12 @@ public class PersonResource {
 
     @GetMapping
     public List<Person> listPersons () {
-        return personRepository.findAll();
+        List<Person> person = personRepository.findAll();
+        if (person.size() == 0) {
+            throw new NullPointerException("A lista de pessoas está fazia.");
+        } else {
+            return person;
+        }
     }
 
     @PostMapping
